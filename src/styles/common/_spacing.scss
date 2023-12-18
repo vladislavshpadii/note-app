@@ -1,0 +1,23 @@
+$base-margin: 4px;
+$base-padding: 4px;
+
+@for $i from 1 through 10 {
+    .ma-#{$i} {
+      margin: $i*$base-margin;
+    }
+    .my-#{$i} {
+      margin: $i*$base-margin 0;
+    }
+    .mx-#{$i} {
+      margin: 0 $i*$base-margin;
+    }
+    .pa-#{$i} {
+      padding: $i*$base-padding;
+    }
+    .py-#{$i} {
+      padding: $i*$base-padding 0;
+    }
+    .px-#{$i} {
+      padding: 0 $i*$base-padding;
+    }
+}

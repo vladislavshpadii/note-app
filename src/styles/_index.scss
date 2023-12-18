@@ -1,0 +1,24 @@
+@import "./common/variables";
+@import "./common/grid";
+@import "./common/spacing";
+@import "./common/dialogs";
+  
+  .error {
+    background-color: $error-color;
+  }
+
+  .error--text {
+    color: $error-color;
+  }
+  
+  .error--border {
+    border-color: $error-color;
+  }
+
+  .d-flex {
+    display: flex;
+  }
+
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
