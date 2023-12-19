@@ -1,12 +1,12 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 import routeNames from '@/router/route-names'
 
-import Home from '@/views/Home.vue'
-import Statistics from '@/views/Statistics.vue'
-import EditNote from '@/views/EditNote.vue'
+import Home from '@/views/HomeView.vue'
+import Statistics from '@/views/StatisticsView.vue'
+import EditNote from '@/views/EditNoteView.vue'
 
-const routes: RouteRecordRaw[] = [
+const routes = [
   {
     path: '/',
     name: routeNames.home,

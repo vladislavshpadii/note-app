@@ -20,8 +20,9 @@ const deleteNote = () => {
 </script>
 
 <template>
-    <div class="note-item pa-5 ma-3">
+    <div class="note-item pa-5 my-3 secondary">
         <p class="note-description" v-html="props.note.description" />
+        <div class="text-right">{{ t('note.charactersAmount') }}  {{ props.note.description.length }}</div>
         <button class="mx-3" @click="router.push({ name: routeNames.editNote, params: { id: props.note.id } })">{{  t('note.actions.edit') }}</button>
         <button class="error" @click="deleteNote">{{  t('note.actions.delete') }}</button>
     </div>

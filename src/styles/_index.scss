@@ -2,6 +2,10 @@
 @import "./common/grid";
 @import "./common/spacing";
 @import "./common/dialogs";
+
+  .secondary {
+    background-color: $secondary-color;
+  }
   
   .error {
     background-color: $error-color;
@@ -12,7 +16,11 @@
   }
   
   .error--border {
-    border-color: $error-color;
+    border: 1px solid $error-color;
+  }
+
+  .white--border {
+    border: 1px solid #fff
   }
 
   .d-flex {
@@ -21,4 +29,16 @@
 
   .flex-wrap {
     flex-wrap: wrap;
+  }
+
+  .justify-end {
+    justify-content: end;
+  }
+
+  .justify-between {
+    justify-content: space-between;
+  }
+
+  .text-right {
+    text-align: right;
   }

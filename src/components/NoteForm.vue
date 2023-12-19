@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
 
 import { Note } from '@/types/note'
 
 const props = defineProps<{
   note?: Note | null,
-  isEdit? : Boolean
+  isEdit? : boolean
 }>()
 
 const { t } = useI18n()
@@ -15,6 +16,8 @@ const emits = defineEmits(['submitNote', 'deleteNote'])
 
 const noteDescription = ref(props.note?.description || '')
 const noteError = ref<null | string>(null)
+
+const router = useRouter()
 
 const submitNote = async () => {
   if (noteDescription.value) {
@@ -45,8 +48,9 @@ const handleKeydown = (event: KeyboardEvent) => {
 
     </textarea>
     <p class="note-error  error--text">{{ noteError }}</p>
-    <button @click="submitNote"> {{ isEdit ? t('note.actions.create') : t('note.actions.save') }} </button>
-    <button v-if="isEdit" @click="deleteNote"> {{ t('note.actions.delete') }} </button>
+    <button v-if="isEdit" @click="router.go(-1)" class="mx-3"> {{ t('note.actions.cancel') }} </button>
+    <button @click="submitNote"> {{ isEdit ? t('note.actions.save') : t('note.actions.create') }} </button>
+    <button v-if="isEdit" @click="deleteNote" class="error mx-3"> {{ t('note.actions.delete') }} </button>
 </div>
 </template>
 

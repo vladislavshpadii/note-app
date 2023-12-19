@@ -1,5 +1,6 @@
 @use 'sass:math';
 
+$spaccing: 4;
 $grid-columns: 12;
 
 .row {
@@ -10,5 +11,6 @@ $grid-columns: 12;
     $width: math.div($i, $grid-columns) * 100%;
     .col-#{$i} {
       width: $width;
+      box-sizing: border-box;
     }
 }

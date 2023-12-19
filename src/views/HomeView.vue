@@ -7,12 +7,14 @@ import NoteItem from '@/components/NoteItem.vue'
 import DeleteNoteDialog from '@/components/dialogs/DeleteNoteDialog.vue'
 
 import { useNotesStore } from '@/store/notes'
+import { Note } from '@/types/note';
 
 const { t } = useI18n()
 
 const notesStore = useNotesStore()
 
 const isDeleteDialogOpened = ref(false)
+const selectedNote = ref<Note | null>(null)
 
 const notes = computed(() => notesStore.notes)
 
@@ -24,16 +26,25 @@ const createNote = async (noteDescription: string) => {
     await notesStore.createNote(noteDescription)
 }
 
-const openDeleteNote = () => {
-    isDeleteDialogOpened.value= true
+const openDeleteNote = (note: Note) => {
+    selectedNote.value = note
+    isDeleteDialogOpened.value = true
+}
+
+const deleteNote = async () => {
+    await notesStore.deleteNote(selectedNote.value?.id || '')
+    selectedNote.value = null
+    isDeleteDialogOpened.value = false
 }
 </script>
 
 <template>
     <h1>{{  t('home.title')  }}</h1>
     <NoteForm @submit-note="createNote" />
-    <template v-for="note in notes">
-        <NoteItem :note="note" class="col-6" @delete-note="openDeleteNote" />
-    </template>
-    <DeleteNoteDialog />
+    <div class="my-3">
+        <template v-for="note in notes" :key="note.id">
+            <NoteItem :note="note" class="col-12" @delete-note="openDeleteNote" />
+        </template>
+    </div>
+    <DeleteNoteDialog v-if="isDeleteDialogOpened" :note="selectedNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
 </template>

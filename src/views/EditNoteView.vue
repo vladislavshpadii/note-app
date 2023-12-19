@@ -7,12 +7,15 @@ import { useNotesStore } from '@/store/notes'
 import routeNames from '@/router/route-names'
 
 import NoteForm from '@/components/NoteForm.vue'
+import DeleteNoteDialog from '@/components/dialogs/DeleteNoteDialog.vue'
 
 const route = useRoute()
 const router = useRouter()
 const notesStore = useNotesStore()
 
-let currentNote = ref<Note | null>(null)
+const currentNote = ref<Note | null>(null)
+
+const isDeleteDialogOpened = ref(false)
 
 const noteId = computed(() => route.params.id as string)
 
@@ -20,6 +23,12 @@ const loadingNote = computed(() => notesStore.loadingNote)
 
 const updateNote = async (description: string) => {
     await notesStore.updateNote({ id: noteId.value, description })
+    router.push({ name: routeNames.home })
+}
+
+const deleteNote = async () => {
+    await notesStore.deleteNote(currentNote.value?.id || '')
+    isDeleteDialogOpened.value = false
     router.push({ name: routeNames.home })
 }
 
@@ -35,5 +44,6 @@ watch(
 </script>
 
 <template>
-    <NoteForm v-if="!loadingNote && currentNote" :note=currentNote @submit-note="updateNote" :is-edit="true" />
+    <NoteForm class="my-4" v-if="!loadingNote && currentNote" :note=currentNote @submit-note="updateNote" @delete-note="isDeleteDialogOpened = true" :is-edit="true" />
+    <DeleteNoteDialog v-if="isDeleteDialogOpened" :note="currentNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
 </template>

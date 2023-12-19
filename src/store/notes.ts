@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { doc, setDoc, collection, getDocs, getDoc, updateDoc } from 'firebase/firestore'
+import { doc, setDoc, collection, getDocs, getDoc, updateDoc, deleteDoc } from 'firebase/firestore'
 import { v4 as uuidv4 } from 'uuid'
 
 import { firestore } from '@/firebase'
@@ -10,7 +10,7 @@ export const useNotesStore = defineStore('notes', {
     state: () => {
         return {
             notes: <Note[]>[],
-            loadingNote: <Boolean>true
+            loadingNote: <boolean>true
         }
     },
     actions: {
@@ -52,7 +52,7 @@ export const useNotesStore = defineStore('notes', {
                     description: noteDescription
                 }
                 await setDoc(doc(firestore, 'notes', id), noteData)
-                this.notes.push(noteData)
+                this.notes.unshift(noteData)
             } catch (e: any) {
                 throw new Error(e.message)
             }
@@ -61,6 +61,16 @@ export const useNotesStore = defineStore('notes', {
         async updateNote(note: Note) {
             try {
                 await updateDoc(doc(firestore, 'notes', note.id), note)
+            } catch (e: any) {
+                throw new Error(e.message)
+            }
+        },
+
+        async deleteNote(id: string) {
+            try {
+                await deleteDoc(doc(firestore, 'notes', id))
+                const deleteIndex = this.notes.findIndex((note) => note.id === id)
+                this.notes.splice(deleteIndex, 1)
             } catch (e: any) {
                 throw new Error(e.message)
             }
