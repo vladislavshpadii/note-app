@@ -36,6 +36,9 @@ watch(
     () => noteId, 
     async (id) => {
         currentNote.value = await notesStore.fetchNoteById(id.value as string)
+        if (!currentNote.value) {
+            router.push({ name: routeNames.pageNotFound })
+        }
     },
     {
         immediate: true
@@ -45,5 +48,5 @@ watch(
 
 <template>
     <NoteForm class="my-4" v-if="!loadingNote && currentNote" :note=currentNote @submit-note="updateNote" @delete-note="isDeleteDialogOpened = true" :is-edit="true" />
-    <DeleteNoteDialog v-if="isDeleteDialogOpened" :note="currentNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
+    <DeleteNoteDialog v-if="isDeleteDialogOpened && currentNote" :note="currentNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
 </template>

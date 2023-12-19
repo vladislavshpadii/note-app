@@ -24,6 +24,10 @@ export default {
                 message: 'Are you sure, you want to delete this note <b>{description}<b>?'
             },
             charactersAmount: 'Characters amount: '
+        },
+        pageNotFound: {
+            title: '404',
+            description: 'Page not found'
         }
     }
 }
