@@ -46,5 +46,5 @@ const deleteNote = async () => {
             <NoteItem :note="note" class="col-12" @delete-note="openDeleteNote" />
         </template>
     </div>
-    <DeleteNoteDialog v-if="isDeleteDialogOpened" :note="selectedNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
+    <DeleteNoteDialog v-if="isDeleteDialogOpened && selectedNote" :note="selectedNote" @close-dialog="isDeleteDialogOpened = false" @deletion-confirm="deleteNote" />
 </template>
