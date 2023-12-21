@@ -1,26 +1,32 @@
 module.exports = {
   root: true,
-  parser: 'vue-eslint-parser',
   parserOptions: {
-    parser: '@babel/eslint-parser',
-    babelOptions: {
-      parserOpts: {
-        plugins: ["jsx", "typescript"]
-      }
-    }
+    parser: "@typescript-eslint/parser",
+    ecmaVersion: 2020,
   },
-  plugins: [
-    'vue',
-    '@typescript-eslint',
-  ],
+  env: {
+    es6: true,
+    browser: true,
+    node: true,
+    "vue/setup-compiler-macros": true,
+  },
   extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/typescript/recommended',
-    'plugin:@typescript-eslint/recommended',
+    "eslint:recommended",
+    "@vue/typescript/recommended",
+    "plugin:vue/vue3-recommended",
+    "plugin:jest/recommended",
+    "plugin:prettier/recommended",
   ],
+
   rules: {
-    "no-console": ["error", { allow: ["warn", "error"] }],
-    '@typescript-eslint/no-explicit-any': 'off',
-  }
+    "no-console": "warn",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "sort-imports": "off",
+    "import/order": "off",
+    "vue/html-closing-bracket-newline": "off",
+    "vue/html-indent": "off",
+    "vue/html-self-closing": "off",
+  },
+  plugins: ["simple-import-sort"],
 };
